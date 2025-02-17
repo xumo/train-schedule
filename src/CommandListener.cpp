@@ -51,9 +51,15 @@ bool CommandListener::parseCommand(const std::string& input) {
 
             std::string inputCopy = input;
             std::transform(inputCopy.begin(), inputCopy.end(), inputCopy.begin(), ::toupper);
-            std::string trainTypeStr = inputCopy.substr(inputCopy.size() - 7);
-            TrainType trainType = (trainTypeStr == "FREIGHT") ? TrainType::PASSENGER : TrainType::FREIGHT;
-            name = name.replace(name.find(trainTypeStr), name.size(), "");
+            
+            TrainType trainType = (inputCopy.find("FREIGHT") != std::string::npos) ? TrainType::FREIGHT : TrainType::PASSENGER;
+            
+            if (name.find("FREIGHT") != std::string::npos) {
+                name = name.replace(name.find("FREIGHT"), 7, "");
+            } else if (name.find("PASSENGER") != std::string::npos) {
+                name = name.replace(name.find("PASSENGER"), 9, "");
+            }
+      
             ScheduleController::addTrain(schedule, name, trainType);
             return true;
         } else if (type == "station") {
@@ -109,7 +115,7 @@ bool CommandListener::parseCommand(const std::string& input) {
         if (filename.find(".json") != std::string::npos) {
             ScheduleController::writeScheduleToJson(schedule, filename);
             return true;
-        }
+        } 
     }  else if (command == "help") {
         printHelp();
         return true;

@@ -50,7 +50,7 @@ public:
 
     static void displaySchedule(const Schedule& schedule)
     {
-        std::cout << "::::::::::::: Schedule ::::::::::::::" << std::endl;
+        std::cout << "------------- Schedule -------------" << std::endl;
         for (const auto& [number, train] : schedule.trains) {
             Printer::print(schedule, number);
             std::cout << "-------------------------------" << std::endl;
