@@ -1,4 +1,6 @@
 # Train schedule
+Author: Rodrigo Torres González
+
 
 ## Requirements
 In order to build this projes this is at lest the requirements:
